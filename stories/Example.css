@@ -1,0 +1,82 @@
+.Example {
+  position: relative;
+  height: 200vh;
+  padding: 16px;
+}
+
+.Example--box {
+  position: relative;
+  display: flex;
+  height: 100px;
+  width: 100px;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.Example--box::after {
+  content: 'Hover 1s';
+  margin: auto;
+}
+
+.Example--box__overflow {
+  overflow: hidden;
+}
+
+.Example--box__left {
+  position: absolute;
+  background-color: lightskyblue;
+  left: 16px;
+  top: calc(50vh - 50px);
+}
+
+.Example--box__left:hover {
+  background-color: skyblue;
+  color: white;
+}
+
+.Example--box__top {
+  position: absolute;
+  background-color: lightcoral;
+  top: 16px;
+  left: calc(50vw - 50px);
+}
+
+.Example--box__top:hover {
+  background-color: coral;
+  color: white;
+}
+
+.Example--box__right {
+  position: absolute;
+  background-color: lightblue;
+  right: 16px;
+  top: calc(50vh - 50px);
+}
+
+.Example--box__right:hover {
+  background-color: blue;
+  color: white;
+}
+
+.Example--box__bottom {
+  position: absolute;
+  background-color: lightpink;
+  top: calc(100vh - 100px - 16px);
+  left: calc(50vw - 50px);
+}
+
+.Example--box__bottom:hover {
+  background-color: pink;
+  color: white;
+}
+
+.Example--box__center {
+  position: absolute;
+  background-color: lightgreen;
+  top: calc(50vh - 50px);
+  left: calc(50vw - 50px);
+}
+
+.Example--box__center:hover {
+  background-color: green;
+  color: white;
+}
