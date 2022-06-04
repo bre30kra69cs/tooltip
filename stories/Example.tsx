@@ -14,7 +14,13 @@ const b = bem('Example');
 export const Example: FC<ExampleProps> = ({overflow}) => {
   return (
     <main className={b()}>
-      <Tooltip>
+      <Tooltip
+        content={
+          <div>
+            <span>Left tooltip</span>
+          </div>
+        }
+      >
         <div
           className={b('box', {
             left: true,
@@ -22,7 +28,7 @@ export const Example: FC<ExampleProps> = ({overflow}) => {
           })}
         ></div>
       </Tooltip>
-      <Tooltip>
+      {/* <Tooltip>
         <div
           className={b('box', {
             top: true,
@@ -52,7 +58,7 @@ export const Example: FC<ExampleProps> = ({overflow}) => {
             center: true,
           })}
         ></div>
-      </Tooltip>
+      </Tooltip> */}
     </main>
   );
 };

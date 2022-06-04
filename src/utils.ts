@@ -27,7 +27,7 @@ export const bem = (base: string) => {
     }
 
     const item = element ? `${base}--${element}` : base;
-    const result = element ? [base, `${base}--${element}`] : [base];
+    const result = [item];
 
     _mods.forEach((mod) => {
       result.push(`${item}__${mod}`);
