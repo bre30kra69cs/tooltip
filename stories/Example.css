@@ -5,7 +5,6 @@
 }
 
 .Example--box {
-  position: relative;
   display: flex;
   height: 100px;
   width: 100px;
@@ -21,11 +20,17 @@
   overflow: hidden;
 }
 
-.Example--box__left {
+.Example--tooltip {
   position: absolute;
-  background-color: lightskyblue;
+}
+
+.Example--tooltip__left {
   left: 16px;
   top: calc(50vh - 50px);
+}
+
+.Example--box__left {
+  background-color: lightskyblue;
 }
 
 .Example--box__left:hover {
@@ -33,11 +38,13 @@
   color: white;
 }
 
-.Example--box__top {
-  position: absolute;
-  background-color: lightcoral;
+.Example--tooltip__top {
   top: 16px;
   left: calc(50vw - 50px);
+}
+
+.Example--box__top {
+  background-color: lightcoral;
 }
 
 .Example--box__top:hover {
@@ -45,11 +52,13 @@
   color: white;
 }
 
-.Example--box__right {
-  position: absolute;
-  background-color: lightblue;
+.Example--tooltip__right {
   right: 16px;
   top: calc(50vh - 50px);
+}
+
+.Example--box__right {
+  background-color: lightblue;
 }
 
 .Example--box__right:hover {
@@ -57,11 +66,13 @@
   color: white;
 }
 
-.Example--box__bottom {
-  position: absolute;
-  background-color: lightpink;
+.Example--tooltip__bottom {
   top: calc(100vh - 100px - 16px);
   left: calc(50vw - 50px);
+}
+
+.Example--box__bottom {
+  background-color: lightpink;
 }
 
 .Example--box__bottom:hover {
@@ -69,11 +80,13 @@
   color: white;
 }
 
-.Example--box__center {
-  position: absolute;
-  background-color: lightgreen;
+.Example--tooltip__center {
   top: calc(50vh - 50px);
   left: calc(50vw - 50px);
+}
+
+.Example--box__center {
+  background-color: lightgreen;
 }
 
 .Example--box__center:hover {

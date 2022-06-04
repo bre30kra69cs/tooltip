@@ -1,18 +1,22 @@
-import React, {useState, useEffect, useRef, FC, ReactNode} from 'react';
+import React, {useState, useRef, FC, ReactNode} from 'react';
 
 import {Portal} from './Portal';
-import {bem} from './utils';
+import {bem, cn} from './utils';
+import {useMounted} from './useMounted';
+import {TooltipContent, TooltipSide} from './TooltipContent';
+import {useScroll} from './useScroll';
 
 import './Tooltip.css';
-
-type TooltipSide = 'left' | 'right' | 'top' | 'bottom';
 
 type TooltipProps = {
   side?: TooltipSide;
   sidesOrder?: TooltipSide[];
   durationIn?: number;
   durationOut?: number;
+  className?: string;
   content: ReactNode;
+  contentHeight: number;
+  contentWidth: number;
   children: ReactNode;
 };
 
@@ -25,16 +29,21 @@ export const Tooltip: FC<TooltipProps> = ({
   sidesOrder = SIDES_ORDERS,
   durationIn = 0,
   durationOut = 0,
+  className,
   content,
+  contentHeight,
+  contentWidth,
   children,
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
   const timerRef = useRef<NodeJS.Timer>();
 
   const [hover, setHover] = useState(false);
 
   const [show, setShow] = useState(false);
 
-  useEffect(() => {
+  useMounted(() => {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
@@ -50,10 +59,21 @@ export const Tooltip: FC<TooltipProps> = ({
     }
   }, [hover, durationIn, durationOut]);
 
+  useScroll(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+
+    if (show) {
+      setShow(false);
+    }
+  });
+
   return (
     <>
       <div
-        className={b()}
+        ref={ref}
+        className={cn(b(), className)}
         onMouseEnter={() => {
           setHover(true);
         }}
@@ -63,7 +83,18 @@ export const Tooltip: FC<TooltipProps> = ({
       >
         {children}
       </div>
-      {show && <Portal containerId="tooltip-portal">{content}</Portal>}
+      {show && (
+        <Portal containerId="tooltip-portal">
+          <TooltipContent
+            anchor={ref}
+            side={side}
+            contentHeight={contentHeight}
+            contentWidth={contentWidth}
+          >
+            {content}
+          </TooltipContent>
+        </Portal>
+      )}
     </>
   );
 };

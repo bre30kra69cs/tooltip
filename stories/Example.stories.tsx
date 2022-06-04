@@ -19,4 +19,5 @@ export const Base = Template.bind({});
 
 Base.args = {
   overflow: true,
+  side: 'right',
 };

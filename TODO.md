@@ -1,0 +1,10 @@
+- [x] portal
+- [x] tooltip content
+- [x] position
+- [] content center
+- [] arrow
+- [-] scroll
+- [x] hide on scroll
+- [] auto side
+- [] persist tooltip when tooltip is hovered
+- [] animation
