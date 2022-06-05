@@ -1,7 +1,7 @@
 {
   "name": "tooltip",
   "version": "0.0.1",
-  "description": "React tooltip component",
+  "description": "react tooltip component",
   "main": "src/index.ts",
   "author": "Andrey Krasovsky <an.krasowsckij@gmail.com>",
   "license": "MIT",
