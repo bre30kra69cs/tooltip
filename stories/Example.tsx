@@ -1,8 +1,6 @@
 import React, {FC} from 'react';
 
-import {Tooltip} from '../src/Tooltip';
-import {TooltipSide} from '../src/TooltipContent';
-import {bem} from '../src/utils';
+import {bem, Tooltip, TooltipSide} from '../src';
 
 import './Example.css';
 
@@ -20,9 +18,10 @@ export const Example: FC<ExampleProps> = ({overflow, side}) => {
         className={b('tooltip', {
           left: true,
         })}
-        durationIn={1000}
-        durationOut={2000}
         side={side}
+        durationIn={1000}
+        durationWait={1000}
+        durationOut={300}
         contentHeight={25}
         contentWidth={50}
         content={

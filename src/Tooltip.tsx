@@ -3,21 +3,22 @@ import React, {useState, useRef, FC, ReactNode} from 'react';
 import {Portal} from './Portal';
 import {bem, cn} from './utils';
 import {useMounted} from './useMounted';
-import {TooltipContent, TooltipSide} from './TooltipContent';
+import {TooltipContent, TooltipStatus, TooltipSide} from './TooltipContent';
 import {useScroll} from './useScroll';
 
 import './Tooltip.css';
 
 type TooltipProps = {
-  side?: TooltipSide;
-  sidesOrder?: TooltipSide[];
-  durationIn?: number;
-  durationOut?: number;
-  className?: string;
   content: ReactNode;
   contentHeight: number;
   contentWidth: number;
-  children: ReactNode;
+  side?: TooltipSide;
+  sidesOrder?: TooltipSide[];
+  durationIn?: number;
+  durationWait?: number;
+  durationOut?: number;
+  className?: string;
+  children?: ReactNode;
 };
 
 const SIDES_ORDERS: TooltipSide[] = ['left', 'top', 'right', 'bottom'];
@@ -28,6 +29,7 @@ export const Tooltip: FC<TooltipProps> = ({
   side = 'left',
   sidesOrder = SIDES_ORDERS,
   durationIn = 0,
+  durationWait = 0,
   durationOut = 0,
   className,
   content,
@@ -41,7 +43,9 @@ export const Tooltip: FC<TooltipProps> = ({
 
   const [hover, setHover] = useState(false);
 
-  const [show, setShow] = useState(false);
+  const [status, setStatus] = useState<TooltipStatus>('closed');
+
+  const isShow = status !== 'closed';
 
   useMounted(() => {
     if (timerRef.current) {
@@ -49,23 +53,59 @@ export const Tooltip: FC<TooltipProps> = ({
     }
 
     if (hover) {
-      timerRef.current = setTimeout(() => {
-        setShow(true);
-      }, durationIn);
+      if (status === 'closed') {
+        timerRef.current = setTimeout(() => {
+          setStatus('wait');
+        }, durationIn);
+      }
+
+      if (status === 'wait') {
+        return;
+      }
+
+      if (status === 'out') {
+        setStatus('wait');
+      }
     } else {
+      if (status === 'closed') {
+        return;
+      }
+
+      if (status === 'wait') {
+        timerRef.current = setTimeout(() => {
+          setStatus('out');
+        }, durationWait);
+      }
+
+      if (status === 'out') {
+        return;
+      }
+    }
+  }, [hover, durationIn, durationWait]);
+
+  useMounted(() => {
+    if (status === 'closed') {
+      return;
+    }
+
+    if (status === 'wait') {
+      return;
+    }
+
+    if (status === 'out') {
       timerRef.current = setTimeout(() => {
-        setShow(false);
+        setStatus('closed');
       }, durationOut);
     }
-  }, [hover, durationIn, durationOut]);
+  }, [status, durationOut]);
 
   useScroll(() => {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
 
-    if (show) {
-      setShow(false);
+    if (isShow) {
+      setStatus('closed');
     }
   });
 
@@ -83,18 +123,19 @@ export const Tooltip: FC<TooltipProps> = ({
       >
         {children}
       </div>
-      {show && (
-        <Portal containerId="tooltip-portal">
-          <TooltipContent
-            anchor={ref}
-            side={side}
-            contentHeight={contentHeight}
-            contentWidth={contentWidth}
-          >
-            {content}
-          </TooltipContent>
-        </Portal>
-      )}
+      <Portal containerId="tooltip-portal" show={isShow}>
+        <TooltipContent
+          anchor={ref}
+          side={side}
+          contentHeight={contentHeight}
+          contentWidth={contentWidth}
+          durationOut={durationOut}
+          status={status}
+          setHover={setHover}
+        >
+          {content}
+        </TooltipContent>
+      </Portal>
     </>
   );
 };

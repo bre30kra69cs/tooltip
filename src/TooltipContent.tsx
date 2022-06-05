@@ -4,6 +4,8 @@ import {bem} from './utils';
 
 import './TooltipContent.css';
 
+export type TooltipStatus = 'closed' | 'wait' | 'out';
+
 export type TooltipSide = 'left' | 'right' | 'top' | 'bottom';
 
 type TooltipContentProps = {
@@ -11,7 +13,10 @@ type TooltipContentProps = {
   side: TooltipSide;
   contentHeight: number;
   contentWidth: number;
-  children: ReactNode;
+  durationOut: number;
+  status: TooltipStatus;
+  children?: ReactNode;
+  setHover: (hover: boolean) => void;
 };
 
 const b = bem('TooltipContent');
@@ -21,7 +26,10 @@ export const TooltipContent: FC<TooltipContentProps> = ({
   side,
   contentHeight,
   contentWidth,
+  durationOut,
+  status,
   children,
+  setHover,
 }) => {
   const data = anchor.current?.getBoundingClientRect() ?? {
     right: 0,
@@ -36,8 +44,8 @@ export const TooltipContent: FC<TooltipContentProps> = ({
   let top = 0;
 
   if (side === 'left') {
-    left = data.left + contentWidth;
-    top = data.top;
+    left = data.left - contentWidth;
+    top = data.top + data.height / 2 - contentHeight / 2;
   }
 
   if (side === 'top') {
@@ -47,22 +55,31 @@ export const TooltipContent: FC<TooltipContentProps> = ({
 
   if (side === 'right') {
     left = data.right;
-    top = data.top;
+    top = data.top + data.height / 2 - contentHeight / 2;
   }
 
   if (side === 'bottom') {
-    left = data.left;
+    left = data.left + data.width / 2 - contentWidth / 2;
     top = data.bottom;
   }
 
   return (
     <div
-      className={b()}
+      className={b('', {
+        [`status-${status}`]: true,
+      })}
       style={{
         left,
         top,
         width: contentWidth,
         height: contentHeight,
+        animationDuration: `${durationOut}ms`,
+      }}
+      onMouseEnter={() => {
+        setHover(true);
+      }}
+      onMouseLeave={() => {
+        setHover(false);
       }}
     >
       {children}

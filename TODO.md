@@ -1,10 +1,11 @@
 - [x] portal
 - [x] tooltip content
 - [x] position
-- [] content center
+- [x] content center
 - [] arrow
 - [-] scroll
 - [x] hide on scroll
 - [] auto side
-- [] persist tooltip when tooltip is hovered
-- [] animation
+- [x] persist tooltip when tooltip is hovered
+- [x] animation
+- [] z-index in open order

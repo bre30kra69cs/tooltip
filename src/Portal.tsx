@@ -3,21 +3,26 @@ import {createPortal} from 'react-dom';
 
 type PortalProps = {
   containerId: string;
+  show?: boolean;
   as?: keyof HTMLElementTagNameMap;
-  children: ReactNode;
+  children?: ReactNode;
 };
 
-export const Portal: FC<PortalProps> = ({containerId, as = 'div', children}) => {
+export const Portal: FC<PortalProps> = ({containerId, show, as = 'div', children}) => {
   const ref = useRef(document.createElement(as));
 
   useEffect(() => {
+    if (!show) {
+      return;
+    }
+
     ref.current.setAttribute('id', containerId);
     document.body.appendChild(ref.current);
 
     return () => {
       document.body.removeChild(ref.current);
     };
-  }, [containerId]);
+  }, [containerId, show]);
 
   return createPortal(children, ref.current);
 };

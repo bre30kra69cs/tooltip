@@ -2,13 +2,10 @@
   "name": "tooltip",
   "version": "0.0.1",
   "description": "React tooltip component",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "src/index.ts",
   "author": "Andrey Krasovsky <an.krasowsckij@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -32,6 +29,7 @@
     "typescript": "4.7.3"
   },
   "peerDependencies": {
-    "react": "18.1.0"
+    "react": "18.1.0",
+    "react-dom": "18.1.0"
   }
 }
