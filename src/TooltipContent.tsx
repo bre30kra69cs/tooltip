@@ -23,16 +23,16 @@ type TooltipContentProps = {
 
 const b = bem('TooltipContent');
 
-const checkIsElementInViewportFull = (left: number, top: number, width: number, height: number) => {
-  return left >= 0 && top >= 0 && top + height <= window.innerHeight && left + width <= innerWidth;
-};
+const ah = 5;
+
+const aw = 5;
 
 export const TooltipContent: FC<TooltipContentProps> = ({
   anchor,
   side,
   sidesOrder,
-  contentHeight,
-  contentWidth,
+  contentHeight: ch,
+  contentWidth: cw,
   animationIn,
   animationOut,
   status,
@@ -50,20 +50,28 @@ export const TooltipContent: FC<TooltipContentProps> = ({
 
   const coords = {
     left: {
-      left: data.left - contentWidth,
-      top: data.top + data.height / 2 - contentHeight / 2,
+      left: data.left - (cw + aw),
+      top: data.top + data.height / 2 - ch / 2,
+      width: cw + aw,
+      height: ch,
     },
     top: {
-      left: data.left + data.width / 2 - contentWidth / 2,
-      top: data.top - contentHeight,
+      left: data.left + data.width / 2 - cw / 2,
+      top: data.top - (ch + ah),
+      width: cw,
+      height: ch + ah,
     },
     right: {
       left: data.right,
-      top: data.top + data.height / 2 - contentHeight / 2,
+      top: data.top + data.height / 2 - ch / 2,
+      width: cw + aw,
+      height: ch,
     },
     bottom: {
-      left: data.left + data.width / 2 - contentWidth / 2,
+      left: data.left + data.width / 2 - cw / 2,
       top: data.bottom,
+      width: cw,
+      height: ch + ah,
     },
   };
 
@@ -76,11 +84,11 @@ export const TooltipContent: FC<TooltipContentProps> = ({
       return false;
     }
 
-    if (coords[x].top + contentHeight > window.innerHeight) {
+    if (coords[x].top + coords[x].height > window.innerHeight) {
       return false;
     }
 
-    if (coords[x].left + contentWidth > window.innerWidth) {
+    if (coords[x].left + coords[x].width > window.innerWidth) {
       return false;
     }
 
@@ -95,12 +103,13 @@ export const TooltipContent: FC<TooltipContentProps> = ({
     <div
       className={b('', {
         [`status-${status}`]: true,
+        [`side-${target}`]: true,
       })}
       style={{
         left: coords[target].left,
         top: coords[target].top,
-        width: contentWidth,
-        height: contentHeight,
+        width: coords[target].width,
+        height: coords[target].height,
         animationDuration: status === 'wait' ? `${animationIn}ms` : `${animationOut}ms`,
       }}
       onMouseEnter={() => {
@@ -110,7 +119,20 @@ export const TooltipContent: FC<TooltipContentProps> = ({
         setHover(false);
       }}
     >
-      {children}
+      <div
+        className={b('content')}
+        style={{
+          width: cw,
+          height: ch,
+        }}
+      >
+        {children}
+      </div>
+      <div
+        className={b('arrow', {
+          [`side-${target}`]: true,
+        })}
+      />
     </div>
   );
 };

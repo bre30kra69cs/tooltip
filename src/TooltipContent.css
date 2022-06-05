@@ -1,11 +1,68 @@
 .TooltipContent {
+  display: flex;
   cursor: pointer;
   position: fixed;
-  overflow: hidden;
-  opacity: 0;
   animation-fill-mode: forwards;
+  align-items: center;
+}
 
+.TooltipContent:hover .TooltipContent--content {
+  background-color: lightcoral;
+}
+
+.TooltipContent:hover .TooltipContent--arrow__side-left {
+  border-left-color: lightcoral;
+}
+
+.TooltipContent:hover .TooltipContent--arrow__side-top {
+  border-top-color: lightcoral;
+}
+
+.TooltipContent:hover .TooltipContent--arrow__side-right {
+  border-right-color: lightcoral;
+}
+
+.TooltipContent:hover .TooltipContent--arrow__side-bottom {
+  border-bottom-color: lightcoral;
+}
+
+.TooltipContent--content {
+  box-sizing: border-box;
+  overflow: hidden;
   background-color: red;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.TooltipContent--arrow {
+  width: 0px;
+  height: 0px;
+  transition: border-color 0.3s;
+}
+
+.TooltipContent--arrow__side-left {
+  border-bottom: 5px solid transparent;
+  border-top: 5px solid transparent;
+  border-left: 5px solid red;
+}
+
+.TooltipContent--arrow__side-top {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid red;
+}
+
+.TooltipContent--arrow__side-right {
+  border-bottom: 5px solid transparent;
+  border-top: 5px solid transparent;
+  border-right: 5px solid red;
+}
+
+.TooltipContent--arrow__side-bottom {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid red;
 }
 
 .TooltipContent__status-wait {
@@ -14,6 +71,22 @@
 
 .TooltipContent__status-out {
   animation-name: fadeOut;
+}
+
+.TooltipContent__side-left {
+  flex-direction: row;
+}
+
+.TooltipContent__side-top {
+  flex-direction: column;
+}
+
+.TooltipContent__side-right {
+  flex-direction: row-reverse;
+}
+
+.TooltipContent__side-bottom {
+  flex-direction: column-reverse;
 }
 
 @keyframes fadeIn {

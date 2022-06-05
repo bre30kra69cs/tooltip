@@ -8,7 +8,7 @@ export const bem = (base: string) => {
 
     if (!mods) {
       if (element) {
-        return `${base} ${base}--${element}`;
+        return `${base}--${element}`;
       }
 
       return base;
@@ -20,7 +20,7 @@ export const bem = (base: string) => {
 
     if (!_mods.length) {
       if (element) {
-        return `${base} ${base}--${element}`;
+        return `${base}--${element}`;
       }
 
       return base;

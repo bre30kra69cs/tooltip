@@ -2,10 +2,10 @@
 - [x] tooltip content
 - [x] position
 - [x] content center
-- [] arrow
+- [x] arrow
 - [-] scroll
 - [x] hide on scroll
 - [x] auto side
 - [x] persist tooltip when tooltip is hovered
 - [x] animation
-- [] z-index in open order
+- [x] z-index in open order

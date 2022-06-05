@@ -13,7 +13,7 @@ const b = bem('Example');
 
 const contentHeight = 50;
 
-const contentWidth = 200;
+const contentWidth = 150;
 
 export const Example: FC<ExampleProps> = ({overflow, side}) => {
   return (
@@ -29,7 +29,7 @@ export const Example: FC<ExampleProps> = ({overflow, side}) => {
         contentHeight={contentHeight}
         contentWidth={contentWidth}
         content={
-          <div>
+          <div className={b('content')}>
             <span>Left tooltip</span>
           </div>
         }
@@ -39,20 +39,22 @@ export const Example: FC<ExampleProps> = ({overflow, side}) => {
             left: true,
             overflow,
           })}
-        ></div>
+        >
+          <span className={b('text')}>Hover 1s</span>
+        </div>
       </Tooltip>
       <Tooltip
         className={b('tooltip', {
           top: true,
         })}
         side={side}
-        durationIn={1000}
-        durationWait={1000}
+        durationIn={1100}
+        durationWait={1100}
         durationOut={300}
         contentHeight={contentHeight}
         contentWidth={contentWidth}
         content={
-          <div>
+          <div className={b('content')}>
             <span>Top tooltip</span>
           </div>
         }
@@ -62,20 +64,22 @@ export const Example: FC<ExampleProps> = ({overflow, side}) => {
             top: true,
             overflow,
           })}
-        ></div>
+        >
+          <span className={b('text')}>Hover 1.1s</span>
+        </div>
       </Tooltip>
       <Tooltip
         className={b('tooltip', {
           right: true,
         })}
         side={side}
-        durationIn={1000}
-        durationWait={1000}
+        durationIn={1300}
+        durationWait={1300}
         durationOut={300}
         contentHeight={contentHeight}
         contentWidth={contentWidth}
         content={
-          <div>
+          <div className={b('content')}>
             <span>Right tooltip</span>
           </div>
         }
@@ -85,20 +89,22 @@ export const Example: FC<ExampleProps> = ({overflow, side}) => {
             right: true,
             overflow,
           })}
-        ></div>
+        >
+          <span className={b('text')}>Hover 1.3s</span>
+        </div>
       </Tooltip>
       <Tooltip
         className={b('tooltip', {
           bottom: true,
         })}
         side={side}
-        durationIn={1000}
-        durationWait={1000}
+        durationIn={1400}
+        durationWait={1400}
         durationOut={300}
         contentHeight={contentHeight}
         contentWidth={contentWidth}
         content={
-          <div>
+          <div className={b('content')}>
             <span>Bottom tooltip</span>
           </div>
         }
@@ -108,20 +114,22 @@ export const Example: FC<ExampleProps> = ({overflow, side}) => {
             bottom: true,
             overflow,
           })}
-        ></div>
+        >
+          <span className={b('text')}>Hover 1.4s</span>
+        </div>
       </Tooltip>
       <Tooltip
         className={b('tooltip', {
           center: true,
         })}
         side={side}
-        durationIn={1000}
-        durationWait={1000}
+        durationIn={1500}
+        durationWait={1500}
         durationOut={300}
         contentHeight={contentHeight}
         contentWidth={contentWidth}
         content={
-          <div>
+          <div className={b('content')}>
             <span>Center tooltip</span>
           </div>
         }
@@ -131,7 +139,9 @@ export const Example: FC<ExampleProps> = ({overflow, side}) => {
             center: true,
             overflow,
           })}
-        ></div>
+        >
+          <span className={b('text')}>Hover 1.5s</span>
+        </div>
       </Tooltip>
     </main>
   );

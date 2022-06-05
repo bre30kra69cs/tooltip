@@ -11,13 +11,16 @@
   transition: color 0.2s, background-color 0.2s;
 }
 
-.Example--box::after {
-  content: 'Hover 1s';
+.Example--text {
   margin: auto;
 }
 
 .Example--box__overflow {
   overflow: hidden;
+}
+
+.Example--content {
+  color: white;
 }
 
 .Example--tooltip {
