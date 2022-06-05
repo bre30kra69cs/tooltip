@@ -19,6 +19,7 @@ type TooltipProps = {
   durationIn?: number;
   durationWait?: number;
   durationOut?: number;
+  hideOnScroll?: boolean;
   className?: string;
   children?: ReactNode;
 };
@@ -28,6 +29,9 @@ const SIDES_ORDERS: TooltipSide[] = ['left', 'top', 'right', 'bottom'];
 const b = bem('Tooltip');
 
 export const Tooltip: FC<TooltipProps> = ({
+  content,
+  contentHeight,
+  contentWidth,
   side = 'left',
   sidesOrder = SIDES_ORDERS,
   animationIn,
@@ -35,10 +39,8 @@ export const Tooltip: FC<TooltipProps> = ({
   durationIn = 0,
   durationWait = 0,
   durationOut = 0,
+  hideOnScroll,
   className,
-  content,
-  contentHeight,
-  contentWidth,
   children,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -108,6 +110,10 @@ export const Tooltip: FC<TooltipProps> = ({
   }, [status, durationOut]);
 
   useScroll(() => {
+    if (!hideOnScroll) {
+      return;
+    }
+
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }

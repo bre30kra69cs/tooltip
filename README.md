@@ -7,7 +7,8 @@ react tooltip component
 - ✅ side auto selection
 - ✅ created with react portal
 - ✅ customizable
-- ✅ hide on scroll
+- ✅ smooth position change on scroll
+- ✅ hide on scroll flag
 - ✅ fade out/in animations
 
 ## example

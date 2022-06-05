@@ -15,8 +15,12 @@ export const bem = (base: string) => {
     }
 
     const _mods = Object.entries(mods)
-      .filter(([, value]) => !!value)
-      .map(([key]) => key);
+      .filter(([, value]) => {
+        return !!value;
+      })
+      .map(([key]) => {
+        return key;
+      });
 
     if (!_mods.length) {
       if (element) {
@@ -26,7 +30,7 @@ export const bem = (base: string) => {
       return base;
     }
 
-    const item = element ? `${base}--${element}` : base;
+    const item = element !== '' ? `${base}--${element}` : base;
     const result = [item];
 
     _mods.forEach((mod) => {
@@ -41,7 +45,11 @@ type Cn = string | null | undefined | boolean;
 
 export const cn = (...classNames: Cn[]) => {
   return classNames
-    .filter((className) => !!className)
-    .filter((className) => typeof className === 'string')
+    .filter((className) => {
+      return !!className;
+    })
+    .filter((className) => {
+      return typeof className === 'string';
+    })
     .join(' ');
 };

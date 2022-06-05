@@ -7,6 +7,7 @@ import './Example.css';
 type ExampleProps = {
   overflow?: boolean;
   side?: TooltipSide;
+  hideOnScroll?: boolean;
 };
 
 const b = bem('Example');
@@ -15,7 +16,7 @@ const contentHeight = 50;
 
 const contentWidth = 150;
 
-export const Example: FC<ExampleProps> = ({overflow, side}) => {
+export const Example: FC<ExampleProps> = ({overflow, side, hideOnScroll}) => {
   return (
     <main className={b()}>
       <Tooltip
@@ -23,6 +24,7 @@ export const Example: FC<ExampleProps> = ({overflow, side}) => {
           left: true,
         })}
         side={side}
+        hideOnScroll={hideOnScroll}
         durationIn={1000}
         durationWait={1000}
         durationOut={300}
@@ -48,6 +50,7 @@ export const Example: FC<ExampleProps> = ({overflow, side}) => {
           top: true,
         })}
         side={side}
+        hideOnScroll={hideOnScroll}
         durationIn={1100}
         durationWait={1100}
         durationOut={300}
@@ -73,6 +76,7 @@ export const Example: FC<ExampleProps> = ({overflow, side}) => {
           right: true,
         })}
         side={side}
+        hideOnScroll={hideOnScroll}
         durationIn={1300}
         durationWait={1300}
         durationOut={300}
@@ -98,6 +102,7 @@ export const Example: FC<ExampleProps> = ({overflow, side}) => {
           bottom: true,
         })}
         side={side}
+        hideOnScroll={hideOnScroll}
         durationIn={1400}
         durationWait={1400}
         durationOut={300}
@@ -123,6 +128,7 @@ export const Example: FC<ExampleProps> = ({overflow, side}) => {
           center: true,
         })}
         side={side}
+        hideOnScroll={hideOnScroll}
         durationIn={1500}
         durationWait={1500}
         durationOut={300}

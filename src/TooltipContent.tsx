@@ -27,6 +27,18 @@ const ah = 5;
 
 const aw = 5;
 
+/**
+ *
+ * Shorts
+ * - ac - absolute coords
+ * - vc - viewport coords
+ * - ch - content height
+ * - cw - content width
+ * - ad - anchor data
+ * - bd - body data
+ * - ah - arrow height
+ * - aw - arrow width
+ */
 export const TooltipContent: FC<TooltipContentProps> = ({
   anchor,
   side,
@@ -39,7 +51,7 @@ export const TooltipContent: FC<TooltipContentProps> = ({
   children,
   setHover,
 }) => {
-  const data = anchor.current?.getBoundingClientRect() ?? {
+  const ad = anchor.current?.getBoundingClientRect() ?? {
     right: 0,
     left: 0,
     top: 0,
@@ -48,7 +60,18 @@ export const TooltipContent: FC<TooltipContentProps> = ({
     height: 0,
   };
 
-  const coords = {
+  const bd = document.body.getBoundingClientRect();
+
+  const data = {
+    left: -bd.left + ad.left,
+    top: -bd.top + ad.top,
+    right: -bd.left + ad.left + ad.width,
+    bottom: -bd.top + ad.top + ad.height,
+    width: ad.width,
+    height: ad.height,
+  };
+
+  const ac = {
     left: {
       left: data.left - (cw + aw),
       top: data.top + data.height / 2 - ch / 2,
@@ -75,20 +98,47 @@ export const TooltipContent: FC<TooltipContentProps> = ({
     },
   };
 
+  const vc = {
+    left: {
+      left: ad.left - (cw + aw),
+      top: ad.top + ad.height / 2 - ch / 2,
+      width: cw + aw,
+      height: ch,
+    },
+    top: {
+      left: ad.left + ad.width / 2 - cw / 2,
+      top: ad.top - (ch + ah),
+      width: cw,
+      height: ch + ah,
+    },
+    right: {
+      left: ad.right,
+      top: ad.top + ad.height / 2 - ch / 2,
+      width: cw + aw,
+      height: ch,
+    },
+    bottom: {
+      left: ad.left + ad.width / 2 - cw / 2,
+      top: ad.bottom,
+      width: cw,
+      height: ch + ah,
+    },
+  };
+
   const target = [side, ...sidesOrder].find((x) => {
-    if (coords[x].left < 0) {
+    if (vc[x].left < 0) {
       return false;
     }
 
-    if (coords[x].top < 0) {
+    if (vc[x].top < 0) {
       return false;
     }
 
-    if (coords[x].top + coords[x].height > window.innerHeight) {
+    if (vc[x].top + vc[x].height > window.innerHeight) {
       return false;
     }
 
-    if (coords[x].left + coords[x].width > window.innerWidth) {
+    if (vc[x].left + vc[x].width > window.innerWidth) {
       return false;
     }
 
@@ -106,10 +156,10 @@ export const TooltipContent: FC<TooltipContentProps> = ({
         [`side-${target}`]: true,
       })}
       style={{
-        left: coords[target].left,
-        top: coords[target].top,
-        width: coords[target].width,
-        height: coords[target].height,
+        left: ac[target].left,
+        top: ac[target].top,
+        width: ac[target].width,
+        height: ac[target].height,
         animationDuration: status === 'wait' ? `${animationIn}ms` : `${animationOut}ms`,
       }}
       onMouseEnter={() => {

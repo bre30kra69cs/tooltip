@@ -1,7 +1,7 @@
 .TooltipContent {
   display: flex;
   cursor: pointer;
-  position: fixed;
+  position: absolute;
   animation-fill-mode: forwards;
   align-items: center;
 }
