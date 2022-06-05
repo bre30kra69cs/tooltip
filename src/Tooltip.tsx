@@ -14,6 +14,8 @@ type TooltipProps = {
   contentWidth: number;
   side?: TooltipSide;
   sidesOrder?: TooltipSide[];
+  animationIn?: number;
+  animationOut?: number;
   durationIn?: number;
   durationWait?: number;
   durationOut?: number;
@@ -28,6 +30,8 @@ const b = bem('Tooltip');
 export const Tooltip: FC<TooltipProps> = ({
   side = 'left',
   sidesOrder = SIDES_ORDERS,
+  animationIn,
+  animationOut,
   durationIn = 0,
   durationWait = 0,
   durationOut = 0,
@@ -46,6 +50,10 @@ export const Tooltip: FC<TooltipProps> = ({
   const [status, setStatus] = useState<TooltipStatus>('closed');
 
   const isShow = status !== 'closed';
+
+  const _animationIn = animationIn ?? durationOut;
+
+  const _animationOut = animationOut ?? durationOut;
 
   useMounted(() => {
     if (timerRef.current) {
@@ -129,6 +137,8 @@ export const Tooltip: FC<TooltipProps> = ({
           side={side}
           contentHeight={contentHeight}
           contentWidth={contentWidth}
+          animationIn={_animationIn}
+          animationOut={_animationOut}
           durationOut={durationOut}
           status={status}
           setHover={setHover}

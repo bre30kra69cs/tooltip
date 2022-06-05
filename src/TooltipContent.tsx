@@ -13,6 +13,8 @@ type TooltipContentProps = {
   side: TooltipSide;
   contentHeight: number;
   contentWidth: number;
+  animationIn: number;
+  animationOut: number;
   durationOut: number;
   status: TooltipStatus;
   children?: ReactNode;
@@ -26,6 +28,8 @@ export const TooltipContent: FC<TooltipContentProps> = ({
   side,
   contentHeight,
   contentWidth,
+  animationIn,
+  animationOut,
   durationOut,
   status,
   children,
@@ -73,7 +77,7 @@ export const TooltipContent: FC<TooltipContentProps> = ({
         top,
         width: contentWidth,
         height: contentHeight,
-        animationDuration: `${durationOut}ms`,
+        animationDuration: status === 'wait' ? `${animationIn}ms` : `${animationOut}ms`,
       }}
       onMouseEnter={() => {
         setHover(true);
