@@ -6,8 +6,8 @@
   "author": "Andrey Krasovsky <an.krasowsckij@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "start": "start-storybook -p 6006",
+    "build": "build-storybook -o docs"
   },
   "devDependencies": {
     "@babel/core": "^7.18.2",
