@@ -135,11 +135,11 @@ export const Tooltip: FC<TooltipProps> = ({
         <TooltipContent
           anchor={ref}
           side={side}
+          sidesOrder={sidesOrder}
           contentHeight={contentHeight}
           contentWidth={contentWidth}
           animationIn={_animationIn}
           animationOut={_animationOut}
-          durationOut={durationOut}
           status={status}
           setHover={setHover}
         >

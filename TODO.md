@@ -5,7 +5,7 @@
 - [] arrow
 - [-] scroll
 - [x] hide on scroll
-- [] auto side
+- [x] auto side
 - [x] persist tooltip when tooltip is hovered
 - [x] animation
 - [] z-index in open order

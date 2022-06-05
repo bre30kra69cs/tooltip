@@ -11,11 +11,11 @@ export type TooltipSide = 'left' | 'right' | 'top' | 'bottom';
 type TooltipContentProps = {
   anchor: RefObject<HTMLDivElement>;
   side: TooltipSide;
+  sidesOrder: TooltipSide[];
   contentHeight: number;
   contentWidth: number;
   animationIn: number;
   animationOut: number;
-  durationOut: number;
   status: TooltipStatus;
   children?: ReactNode;
   setHover: (hover: boolean) => void;
@@ -23,14 +23,18 @@ type TooltipContentProps = {
 
 const b = bem('TooltipContent');
 
+const checkIsElementInViewportFull = (left: number, top: number, width: number, height: number) => {
+  return left >= 0 && top >= 0 && top + height <= window.innerHeight && left + width <= innerWidth;
+};
+
 export const TooltipContent: FC<TooltipContentProps> = ({
   anchor,
   side,
+  sidesOrder,
   contentHeight,
   contentWidth,
   animationIn,
   animationOut,
-  durationOut,
   status,
   children,
   setHover,
@@ -44,27 +48,47 @@ export const TooltipContent: FC<TooltipContentProps> = ({
     height: 0,
   };
 
-  let left = 0;
-  let top = 0;
+  const coords = {
+    left: {
+      left: data.left - contentWidth,
+      top: data.top + data.height / 2 - contentHeight / 2,
+    },
+    top: {
+      left: data.left + data.width / 2 - contentWidth / 2,
+      top: data.top - contentHeight,
+    },
+    right: {
+      left: data.right,
+      top: data.top + data.height / 2 - contentHeight / 2,
+    },
+    bottom: {
+      left: data.left + data.width / 2 - contentWidth / 2,
+      top: data.bottom,
+    },
+  };
 
-  if (side === 'left') {
-    left = data.left - contentWidth;
-    top = data.top + data.height / 2 - contentHeight / 2;
-  }
+  const target = [side, ...sidesOrder].find((x) => {
+    if (coords[x].left < 0) {
+      return false;
+    }
 
-  if (side === 'top') {
-    left = data.left + data.width / 2 - contentWidth / 2;
-    top = data.top - contentHeight;
-  }
+    if (coords[x].top < 0) {
+      return false;
+    }
 
-  if (side === 'right') {
-    left = data.right;
-    top = data.top + data.height / 2 - contentHeight / 2;
-  }
+    if (coords[x].top + contentHeight > window.innerHeight) {
+      return false;
+    }
 
-  if (side === 'bottom') {
-    left = data.left + data.width / 2 - contentWidth / 2;
-    top = data.bottom;
+    if (coords[x].left + contentWidth > window.innerWidth) {
+      return false;
+    }
+
+    return true;
+  });
+
+  if (!target) {
+    return null;
   }
 
   return (
@@ -73,8 +97,8 @@ export const TooltipContent: FC<TooltipContentProps> = ({
         [`status-${status}`]: true,
       })}
       style={{
-        left,
-        top,
+        left: coords[target].left,
+        top: coords[target].top,
         width: contentWidth,
         height: contentHeight,
         animationDuration: status === 'wait' ? `${animationIn}ms` : `${animationOut}ms`,

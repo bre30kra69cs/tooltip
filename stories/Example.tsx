@@ -11,6 +11,10 @@ type ExampleProps = {
 
 const b = bem('Example');
 
+const contentHeight = 50;
+
+const contentWidth = 200;
+
 export const Example: FC<ExampleProps> = ({overflow, side}) => {
   return (
     <main className={b()}>
@@ -22,8 +26,8 @@ export const Example: FC<ExampleProps> = ({overflow, side}) => {
         durationIn={1000}
         durationWait={1000}
         durationOut={300}
-        contentHeight={25}
-        contentWidth={50}
+        contentHeight={contentHeight}
+        contentWidth={contentWidth}
         content={
           <div>
             <span>Left tooltip</span>
@@ -37,7 +41,22 @@ export const Example: FC<ExampleProps> = ({overflow, side}) => {
           })}
         ></div>
       </Tooltip>
-      {/* <Tooltip>
+      <Tooltip
+        className={b('tooltip', {
+          top: true,
+        })}
+        side={side}
+        durationIn={1000}
+        durationWait={1000}
+        durationOut={300}
+        contentHeight={contentHeight}
+        contentWidth={contentWidth}
+        content={
+          <div>
+            <span>Top tooltip</span>
+          </div>
+        }
+      >
         <div
           className={b('box', {
             top: true,
@@ -45,7 +64,22 @@ export const Example: FC<ExampleProps> = ({overflow, side}) => {
           })}
         ></div>
       </Tooltip>
-      <Tooltip>
+      <Tooltip
+        className={b('tooltip', {
+          right: true,
+        })}
+        side={side}
+        durationIn={1000}
+        durationWait={1000}
+        durationOut={300}
+        contentHeight={contentHeight}
+        contentWidth={contentWidth}
+        content={
+          <div>
+            <span>Right tooltip</span>
+          </div>
+        }
+      >
         <div
           className={b('box', {
             right: true,
@@ -53,7 +87,22 @@ export const Example: FC<ExampleProps> = ({overflow, side}) => {
           })}
         ></div>
       </Tooltip>
-      <Tooltip>
+      <Tooltip
+        className={b('tooltip', {
+          bottom: true,
+        })}
+        side={side}
+        durationIn={1000}
+        durationWait={1000}
+        durationOut={300}
+        contentHeight={contentHeight}
+        contentWidth={contentWidth}
+        content={
+          <div>
+            <span>Bottom tooltip</span>
+          </div>
+        }
+      >
         <div
           className={b('box', {
             bottom: true,
@@ -61,13 +110,29 @@ export const Example: FC<ExampleProps> = ({overflow, side}) => {
           })}
         ></div>
       </Tooltip>
-      <Tooltip>
+      <Tooltip
+        className={b('tooltip', {
+          center: true,
+        })}
+        side={side}
+        durationIn={1000}
+        durationWait={1000}
+        durationOut={300}
+        contentHeight={contentHeight}
+        contentWidth={contentWidth}
+        content={
+          <div>
+            <span>Center tooltip</span>
+          </div>
+        }
+      >
         <div
           className={b('box', {
             center: true,
+            overflow,
           })}
         ></div>
-      </Tooltip> */}
+      </Tooltip>
     </main>
   );
 };
